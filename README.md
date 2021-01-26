@@ -1,6 +1,6 @@
 # uptime_robot_cubit
 
-A new Flutter project.
+Create a Flutter app to learn Cubit state management, to monitoring site with uptimerobot API.
 
 ## Getting Started
 
