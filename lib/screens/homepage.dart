@@ -11,176 +11,12 @@ class Homepage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // * Dashboard
-          Container(
-            padding: EdgeInsets.all(defaultMargin),
-            height: MediaQuery.of(context).size.height * 0.3,
-            decoration: BoxDecoration(
-              color: purpleColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // *  User Greetings
-                Container(
-                  width: MediaQuery.of(context).size.width - 2 * defaultMargin,
-                  child: Row(
-                    children: [
-                      Text(
-                        'Hello, ',
-                        style: whiteTextStyle.copyWith(
-                            fontWeight: FontWeight.w100),
-                      ),
-                      Text(
-                        'madeabinawa',
-                        style: whiteTextStyle.copyWith(
-                            fontWeight: FontWeight.w900),
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                      ),
-                    ],
-                  ),
-                ),
-                // *  Overview Text
-                Text(
-                  "Quickstats Overview",
-                  style: greyTextStyle.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w100),
-                ),
-                SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right: BorderSide(width: 0.5, color: Colors.white),
-                        ),
-                      ),
-                      width: dashboardWidth,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border:
-                                  Border.all(width: 0.5, color: Colors.white),
-                            ),
-                            child: Icon(
-                              Icons.arrow_upward,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Live',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300)),
-                              Text(
-                                '11',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right: BorderSide(width: 0.5, color: Colors.white),
-                        ),
-                      ),
-                      width: dashboardWidth,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border:
-                                  Border.all(width: 0.5, color: Colors.white),
-                            ),
-                            child: Icon(
-                              Icons.arrow_downward,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Down',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              Text(
-                                '11',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: dashboardWidth,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(3),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border:
-                                  Border.all(width: 0.5, color: Colors.white),
-                            ),
-                            child: Icon(
-                              Icons.pause,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Paused',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.white),
-                              ),
-                              Text(
-                                '11',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 6)
-              ],
-            ),
+          // *Dashboard Widget
+          ClipPath(
+            clipper: ContainerClipper(),
+            child: DashboardWidget(dashboardWidth),
           ),
+          // *ListView Monitors
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -192,14 +28,15 @@ class Homepage extends StatelessWidget {
                     context.read<MonitorsCubit>().getMonitorList();
                   } else if (monitorState is MonitorsLoaded) {
                     return ListView(
-                        physics: BouncingScrollPhysics(),
-                        children: generateMonitorsCard(monitorState.monitors));
+                      physics: BouncingScrollPhysics(),
+                      children: generateMonitorsCard(monitorState.monitors),
+                    );
                   }
                   return Container(
                     height: 100,
                     width: 100,
                     child: Center(
-                      child: CircularProgressIndicator(),
+                      child: SpinKitWave(color: purpleColor),
                     ),
                   );
                 },
@@ -210,6 +47,29 @@ class Homepage extends StatelessWidget {
       ),
     );
   }
+}
+
+class ContainerClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path_0 = Path();
+    path_0.moveTo(0, 0);
+    path_0.lineTo(0, size.height * 0.84);
+    path_0.quadraticBezierTo(size.width * -0.00, size.height * 0.93,
+        size.width * 0.04, size.height * 0.93);
+    path_0.cubicTo(size.width * 0.27, size.height * 0.93, size.width * 0.72,
+        size.height * 0.93, size.width * 0.95, size.height * 0.93);
+    path_0.quadraticBezierTo(
+        size.width * 0.99, size.height * 0.93, size.width, size.height);
+    path_0.lineTo(size.width, 0);
+    path_0.lineTo(0, 0);
+    path_0.close();
+
+    return path_0;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
 generateMonitorsCard(List<MonitorModel> monitors) {
