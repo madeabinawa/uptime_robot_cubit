@@ -19,51 +19,59 @@ class _MonitorCardState extends State<MonitorCard> {
         onTap: () {
           context.read<PageCubit>().goToWebview(widget.monitor);
         },
-        child: ListTile(
-          contentPadding: EdgeInsets.all(5),
-          leading: Container(
-            padding: EdgeInsets.fromLTRB(10, 12, 10, 15),
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(width: 1.0, color: purpleColor),
-              ),
-            ),
-            child: chkIconStat(widget.monitor.status),
-          ),
-          title: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              widget.monitor.alias,
-              style: blackTextStyle.copyWith(fontSize: 18),
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(widget.monitor.metaTitle,
-                    style: greyTextStyle.copyWith(fontSize: 14),
-                    maxLines: 1,
-                    overflow: TextOverflow.clip),
-                SizedBox(
-                  height: 10,
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return ListTile(
+              contentPadding: EdgeInsets.all(5),
+              leading: Container(
+                padding: EdgeInsets.fromLTRB(10, 12, 10, 15),
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(width: 1.0, color: purpleColor),
+                  ),
                 ),
-                Text(widget.monitor.site,
-                    style: greyTextStyle.copyWith(fontSize: 11),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis),
-              ],
-            ),
-          ),
-          trailing: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 15, 5, 10),
-            child: Icon(
-              Icons.chevron_right,
-              color: purpleColor,
-            ),
-          ),
+                child: chkIconStat(widget.monitor.status),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  widget.monitor.alias,
+                  style: blackTextStyle.copyWith(
+                      fontSize: 18,
+                      color: (state is ThemeLight)
+                          ? Colors.black
+                          : Colors.white60),
+                ),
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(widget.monitor.metaTitle,
+                        style: greyTextStyle.copyWith(fontSize: 14),
+                        maxLines: 1,
+                        overflow: TextOverflow.clip),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(widget.monitor.site,
+                        style: greyTextStyle.copyWith(fontSize: 11),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
+                  ],
+                ),
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.fromLTRB(5, 15, 5, 10),
+                child: Icon(
+                  Icons.chevron_right,
+                  color: purpleColor,
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

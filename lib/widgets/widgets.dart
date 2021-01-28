@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uptime_robot_cubit/cubit/dashboard_cubit.dart';
 import 'package:uptime_robot_cubit/cubit/page_cubit.dart';
+import 'package:uptime_robot_cubit/cubit/theme_cubit.dart';
 import 'package:uptime_robot_cubit/models/monitor_model.dart';
 import 'package:uptime_robot_cubit/theme.dart';
 

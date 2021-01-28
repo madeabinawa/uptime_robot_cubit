@@ -24,12 +24,32 @@ class DashboardWidget extends StatelessWidget {
               children: [
                 // *  User Greetings
                 Container(
-                  child: Text(
-                    "Hello, ${dashboardState.dashboard.email.split("@")[0]}",
-                    style: whiteTextStyle.copyWith(fontWeight: FontWeight.w900),
-                    maxLines: 1,
-                    overflow: TextOverflow.clip,
-                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Hello, ${dashboardState.dashboard.email.split("@")[0]}",
+                          style: whiteTextStyle.copyWith(
+                              fontWeight: FontWeight.w900),
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                        ),
+                        BlocBuilder<ThemeCubit, ThemeState>(
+                          builder: (context, themeState) {
+                            return GestureDetector(
+                              onTap: () {
+                                context.read<ThemeCubit>().switchTheme();
+                              },
+                              child: Icon(
+                                (themeState is ThemeLight)
+                                    ? Icons.nights_stay
+                                    : Icons.wb_sunny,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                        ),
+                      ]),
                 ),
                 // *  Overview Text
                 Text(
