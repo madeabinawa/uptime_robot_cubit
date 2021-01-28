@@ -16,6 +16,9 @@ class _MonitorCardState extends State<MonitorCard> {
       elevation: 8,
       margin: new EdgeInsets.symmetric(horizontal: 15.0, vertical: 6.0),
       child: InkWell(
+        onTap: () {
+          context.read<PageCubit>().goToWebview(widget.monitor);
+        },
         child: ListTile(
           contentPadding: EdgeInsets.all(5),
           leading: Container(
