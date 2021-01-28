@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uptime_robot_cubit/cubit/dashboard_cubit.dart';
 import 'package:uptime_robot_cubit/cubit/monitors_cubit.dart';
+import 'package:uptime_robot_cubit/cubit/page_cubit.dart';
 import 'package:uptime_robot_cubit/screens/screens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,10 +19,14 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: MultiBlocProvider(providers: [
-        BlocProvider(create: (context) => MonitorsCubit()),
-        BlocProvider(create: (context) => DashboardCubit()),
-      ], child: Homepage()),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => PageCubit()),
+          BlocProvider(create: (context) => MonitorsCubit()),
+          BlocProvider(create: (context) => DashboardCubit()),
+        ],
+        child: Navigation(),
+      ),
     );
   }
 }
