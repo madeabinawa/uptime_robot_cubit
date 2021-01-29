@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uptime_robot_cubit/cubit/dashboard_cubit.dart';
 import 'package:uptime_robot_cubit/cubit/monitors_cubit.dart';
 import 'package:uptime_robot_cubit/cubit/page_cubit.dart';
+import 'package:uptime_robot_cubit/cubit/testpage_cubit.dart';
 import 'package:uptime_robot_cubit/cubit/theme_cubit.dart';
 import 'package:uptime_robot_cubit/screens/screens.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => MonitorsCubit()),
         BlocProvider(create: (context) => DashboardCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => TestpageCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {

@@ -40,11 +40,25 @@ class DashboardWidget extends StatelessWidget {
                               onTap: () {
                                 context.read<ThemeCubit>().switchTheme();
                               },
-                              child: Icon(
-                                (themeState is ThemeLight)
-                                    ? Icons.nights_stay
-                                    : Icons.wb_sunny,
-                                color: Colors.white,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    (themeState is ThemeLight)
+                                        ? Icons.nights_stay
+                                        : Icons.wb_sunny,
+                                    color: Colors.white,
+                                  ),
+                                  FlatButton.icon(
+                                    onPressed: () => context
+                                        .read<PageCubit>()
+                                        .goToTestpage(),
+                                    icon: Icon(Icons.settings),
+                                    label: Text("Test Page"),
+                                  ),
+                                ],
                               ),
                             );
                           },

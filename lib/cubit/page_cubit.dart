@@ -9,4 +9,5 @@ class PageCubit extends Cubit<PageState> {
   PageCubit() : super(PageInitial());
   void goToMainPage() => emit(PageInitial());
   void goToWebview(MonitorModel monitor) => emit(PageWebview(monitor));
+  void goToTestpage() => emit(PageTestpage());
 }

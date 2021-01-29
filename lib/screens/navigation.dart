@@ -10,6 +10,8 @@ class Navigation extends StatelessWidget {
         // then set screen to Webview
         if (pageState is PageWebview) {
           return Webview(pageState.monitor);
+        } else if (pageState is PageTestpage) {
+          return Testpage();
         }
         return Homepage();
       },

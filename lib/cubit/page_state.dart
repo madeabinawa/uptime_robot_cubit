@@ -9,3 +9,5 @@ class PageWebview extends PageState {
   final MonitorModel monitor;
   PageWebview(this.monitor);
 }
+
+class PageTestpage extends PageState {}
